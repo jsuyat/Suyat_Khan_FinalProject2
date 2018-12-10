@@ -5,10 +5,54 @@
     <ListView
         android:id="@+id/recipe_list"
         android:layout_width="match_parent"
-        android:layout_height="320dp"
+        android:layout_height="346dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="0dp"
         android:layout_marginBottom="0dp" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="Choose your Meat, Vegetable, Grain, Dairy, and Fruit. "
+        android:textSize="16sp" />
+
+    <Spinner
+        android:id="@+id/meatSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView5"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:id="@+id/vegetableSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/meatSpinner"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:id="@+id/grainSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/vegetableSpinner"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:id="@+id/dairySpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/grainSpinner"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:id="@+id/fruitSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dairySpinner"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

@@ -2,8 +2,12 @@ package edu.gmu.cs477.khan_suyat_finalproject;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RecipesDatabase extends SQLiteOpenHelper {
 
@@ -56,6 +60,34 @@ public class RecipesDatabase extends SQLiteOpenHelper {
         values.put(LINK, "https://www.foodnetwork.com/recipes/food-network-kitchen/general-tsos-chicken-recipe-3361885");
         values.put(CHECKED, 0);
         db.insert(RECIPES_NAME, null, values);
+    }
+
+    /**
+     * Getting all labels
+     * returns list of labels
+     * */
+    public ArrayList<String> getMeatLabels(){
+        ArrayList<String> meatLabels = new ArrayList<>();
+
+        // Select All Query
+        String selectQuery = "SELECT MEAT FROM " + RECIPES_NAME;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                meatLabels.add(cursor.getString(1));
+            } while (cursor.moveToNext());
+        }
+
+        // closing connection
+        cursor.close();
+        db.close();
+
+        // returning lables
+        return meatLabels;
     }
 
     @Override

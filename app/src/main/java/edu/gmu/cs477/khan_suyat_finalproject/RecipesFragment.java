@@ -11,9 +11,12 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.EditText;
 import android.widget.Spinner;
+
+import java.util.ArrayList;
 
 public class RecipesFragment extends Fragment {
 
@@ -22,6 +25,7 @@ public class RecipesFragment extends Fragment {
     android.widget.SimpleCursorAdapter myAdapter;
     ListView mlist;
     Cursor mCursor;
+    Spinner mSpinner;
     android.app.AlertDialog actions;
     View view;
 
@@ -49,6 +53,7 @@ public class RecipesFragment extends Fragment {
                 mCursor,
                 new String[]{RECIPE},
                 new int[]{android.R.id.text1});
+
     }
 
     @Nullable
@@ -62,6 +67,17 @@ public class RecipesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mlist = (ListView) getView().findViewById(R.id.recipe_list);
         mlist.setAdapter(myAdapter);
+
+        mSpinner = (Spinner) getView().findViewById(R.id.meatSpinner);
+
+
+    }
+
+    private void loadSpinnerData(){
+        ArrayList<String> meatLabels = recipeDBHelper.getMeatLabels();
+        ArrayAdapter<String> meatAdapter = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_spinner_item, meatLabels);
+        mSpinner.setAdapter(meatAdapter);
     }
 
 }
