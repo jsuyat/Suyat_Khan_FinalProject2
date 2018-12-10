@@ -13,6 +13,5 @@ public class AddGrocery extends AppCompatActivity {
     }
 
     public void onAddIngredientClicked(View view){
-
     }
 }
