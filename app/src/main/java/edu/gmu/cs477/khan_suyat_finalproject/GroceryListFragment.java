@@ -32,7 +32,7 @@ public class GroceryListFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         groceryDBHelper = new GroceryListDatabase(getContext());
-        System.out.println("Jed Suyat");
+        System.out.println("MKv2");
         db = groceryDBHelper.getWritableDatabase();
         mCursor = db.query(groceryDBHelper.NAME, all_columns,null,null,null,null,null);
         myAdapter = new SimpleCursorAdapter(getContext(),
