@@ -13,47 +13,55 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 public class RecipesFragment extends Fragment {
 
     private SQLiteDatabase db = null;
-    private GroceryListDatabase groceryHelper = null;
-    SimpleCursorAdapter myAdapter;
+    private RecipesDatabase recipeDBHelper = null;
+    android.widget.SimpleCursorAdapter myAdapter;
     ListView mlist;
-    EditText elem;
     Cursor mCursor;
-    AlertDialog actions;
+    android.app.AlertDialog actions;
+    View view;
 
-
+    final static String _ID = "_id";
+    final private static String RECIPE = "recipe";
+    final private static String MEAT = "meat";
+    final private static String VEGETABLE = "vegetable";
+    final private static String GRAIN = "grain";
+    final private static String DAIRY = "dairy";
+    final private static String FRUIT = "fruit";
+    final private static String CALORIES = "calories";
+    final private static String LINK = "link";
+    final private static String CHECKED = "checked";
+    final static String[] all_columns = {_ID, RECIPE, MEAT, VEGETABLE, GRAIN, DAIRY, FRUIT, CALORIES, LINK, CHECKED};
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+        recipeDBHelper = new RecipesDatabase(getContext());
+        System.out.println("In On create");
+        db = recipeDBHelper.getWritableDatabase();
+        mCursor = db.query(recipeDBHelper.RECIPES_NAME, all_columns,null,null,null,null,null);
+        myAdapter = new android.widget.SimpleCursorAdapter(getContext(),
+                android.R.layout.simple_list_item_1,
+                mCursor,
+                new String[]{RECIPE},
+                new int[]{android.R.id.text1});
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        View view =  inflater.inflate(R.layout.fragment_recipes, null);
-        mlist = (ListView) view.findViewById(R.id.grocery_list);
-        return view;
+        return inflater.inflate(R.layout.fragment_recipes, null);
     }
 
-    /*public void onResume(){
-        super.onResume();
-        db = groceryHelper.getWritableDatabase();
-
-        mCursor = db.query(groceryHelper.NAME, all_columns, null, null, null, null,
-                null);
-        myAdapter = new SimpleCursorAdapter(getContext(),
-                android.R.layout.simple_list_item_1,
-                mCursor,
-                new String[] { "item" },
-                new int[] { android.R.id.text1 });
-
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mlist = (ListView) getView().findViewById(R.id.recipe_list);
         mlist.setAdapter(myAdapter);
-    }*/
+    }
 
 }

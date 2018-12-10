@@ -14,6 +14,7 @@
         android:textSize="24sp" />
 
     <ListView
+        android:id="@+id/grocery_list"
         android:layout_width="385dp"
         android:layout_height="315dp"
         android:layout_below="@+id/textView"
