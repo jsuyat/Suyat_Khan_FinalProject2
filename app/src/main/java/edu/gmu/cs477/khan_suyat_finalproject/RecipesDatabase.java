@@ -40,6 +40,8 @@ public class RecipesDatabase extends SQLiteOpenHelper {
                     CHECKED + " INTEGER)";
 
 
+
+
     public RecipesDatabase(Context context){
         super(context, "recipes_db", null, VERSION);
         this.context = context;
@@ -62,33 +64,7 @@ public class RecipesDatabase extends SQLiteOpenHelper {
         db.insert(RECIPES_NAME, null, values);
     }
 
-    /**
-     * Getting all labels
-     * returns list of labels
-     * */
-    public ArrayList<String> getMeatLabels(){
-        ArrayList<String> meatLabels = new ArrayList<>();
 
-        // Select All Query
-        String selectQuery = "SELECT MEAT FROM " + RECIPES_NAME;
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        // looping through all rows and adding to list
-        if (cursor.moveToFirst()) {
-            do {
-                meatLabels.add(cursor.getString(1));
-            } while (cursor.moveToNext());
-        }
-
-        // closing connection
-        cursor.close();
-        db.close();
-
-        // returning lables
-        return meatLabels;
-    }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

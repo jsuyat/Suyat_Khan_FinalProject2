@@ -22,10 +22,12 @@ public class RecipesFragment extends Fragment {
 
     private SQLiteDatabase db = null;
     private RecipesDatabase recipeDBHelper = null;
+    private GroceryListDatabase groceryDBHelper = null;
     android.widget.SimpleCursorAdapter myAdapter;
     ListView mlist;
     Cursor mCursor;
     Spinner mSpinner;
+    Spinner fSpinner;
     android.app.AlertDialog actions;
     View view;
 
@@ -45,6 +47,7 @@ public class RecipesFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         recipeDBHelper = new RecipesDatabase(getContext());
+        groceryDBHelper = new GroceryListDatabase(getContext());
         System.out.println("In On create");
         db = recipeDBHelper.getWritableDatabase();
         mCursor = db.query(recipeDBHelper.RECIPES_NAME, all_columns,null,null,null,null,null);
@@ -69,15 +72,18 @@ public class RecipesFragment extends Fragment {
         mlist.setAdapter(myAdapter);
 
         mSpinner = (Spinner) getView().findViewById(R.id.meatSpinner);
-
-
+        fSpinner = (Spinner) getView().findViewById(R.id.fruitSpinner);
+        loadSpinnerData();
     }
 
     private void loadSpinnerData(){
-        ArrayList<String> meatLabels = recipeDBHelper.getMeatLabels();
-        ArrayAdapter<String> meatAdapter = new ArrayAdapter<String>(getContext(),
-                android.R.layout.simple_spinner_item, meatLabels);
-        mSpinner.setAdapter(meatAdapter);
+        //ArrayList<String> meatLabels = groceryDBHelper.getMeatLabels();
+        //ArrayAdapter<String> meatAdapter = new ArrayAdapter<String>(getContext(),
+        //        android.R.layout.simple_spinner_item, meatLabels);
+        //mSpinner.setAdapter(meatAdapter);
+        ArrayList<String> fruitLabels = groceryDBHelper.getFruitLabels();
+        ArrayAdapter<String> fruitAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, fruitLabels);
+        fSpinner.setAdapter(fruitAdapter);
     }
 
 }

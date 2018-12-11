@@ -5,7 +5,7 @@
     <ListView
         android:id="@+id/recipe_list"
         android:layout_width="match_parent"
-        android:layout_height="346dp"
+        android:layout_height="315dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="0dp"
@@ -54,5 +54,16 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/dairySpinner"
         android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="112dp"
+        android:layout_height="32dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="160dp"
+        android:text="Recipes:"
+        android:textSize="24sp" />
 
 </RelativeLayout>
