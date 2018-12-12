@@ -74,35 +74,40 @@
             android:layout_width="142dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Meat" />
+            android:text="Meat"
+            android:onClick="onRadioButtonClicked"/>
 
         <RadioButton
             android:id="@+id/vegetableButton"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Vegetable" />
+            android:text="Vegetable"
+            android:onClick="onRadioButtonClicked"/>
 
         <RadioButton
             android:id="@+id/dairyButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Dairy/Eggs" />
+            android:text="Dairy/Eggs"
+            android:onClick="onRadioButtonClicked"/>
 
         <RadioButton
             android:id="@+id/grainButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Grains" />
+            android:text="Grains"
+            android:onClick="onRadioButtonClicked"/>
 
         <RadioButton
             android:id="@+id/fruitButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Fruit" />
+            android:text="Fruit"
+            android:onClick="onRadioButtonClicked"/>
     </RadioGroup>
 
     <Button

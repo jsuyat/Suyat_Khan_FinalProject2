@@ -62,6 +62,102 @@ public class RecipesDatabase extends SQLiteOpenHelper {
         values.put(LINK, "https://www.foodnetwork.com/recipes/food-network-kitchen/general-tsos-chicken-recipe-3361885");
         values.put(CHECKED, 0);
         db.insert(RECIPES_NAME, null, values);
+
+        values = new ContentValues();
+        values.put(RECIPE, "Chicken Fried Rice");
+        values.put(MEAT, "Chicken");
+        values.put(VEGETABLE, "Carrots");
+        values.put(GRAIN, "Rice");
+        values.put(DAIRY, "Eggs");
+        values.put(FRUIT, "None");
+        values.put(CALORIES, 471);
+        values.put(LINK, "https://www.foodnetwork.com/recipes/robert-irvine/chicken-fried-rice-recipe-1952257");
+        values.put(CHECKED, 0);
+        db.insert(RECIPES_NAME, null, values);
+
+        values = new ContentValues();
+        values.put(RECIPE, "Chicken Parmesan");
+        values.put(MEAT, "Chicken");
+        values.put(VEGETABLE, "Basil");
+        values.put(GRAIN, "Spaghetti");
+        values.put(DAIRY, "Cheese");
+        values.put(FRUIT, "Tomatoes");
+        values.put(CALORIES, 471);
+        values.put(LINK, "https://www.foodnetwork.com/recipes/food-network-kitchen/general-tsos-chicken-recipe-3361885");
+        values.put(CHECKED, 0);
+        db.insert(RECIPES_NAME, null, values);
+
+        values = new ContentValues();
+        values.put(RECIPE, "Chicken Parmesan");
+        values.put(MEAT, "Chicken");
+        values.put(VEGETABLE, "Basil");
+        values.put(GRAIN, "Spaghetti");
+        values.put(DAIRY, "Cheese");
+        values.put(FRUIT, "Tomatoes");
+        values.put(CALORIES, 471);
+        values.put(LINK, "https://www.foodnetwork.com/recipes/food-network-kitchen/general-tsos-chicken-recipe-3361885");
+        values.put(CHECKED, 0);
+        db.insert(RECIPES_NAME, null, values);
+
+        values = new ContentValues();
+        values.put(RECIPE, "Pot Roast");
+        values.put(MEAT, "Beef");
+        values.put(VEGETABLE, "Carrots");
+        values.put(GRAIN, "Flour");
+        values.put(DAIRY, "Heavy Cream");
+        values.put(FRUIT, "None");
+        values.put(CALORIES, 243);
+        values.put(LINK, "https://www.allrecipes.com/recipe/162091/awesome-red-wine-pot-roast/?internalSource=streams&referringId=1469&referringContentType=Recipe%20Hub&clickId=st_trending_b");
+        values.put(CHECKED, 0);
+        db.insert(RECIPES_NAME, null, values);
+
+        values = new ContentValues();
+        values.put(RECIPE, "Chicken Parmesan");
+        values.put(MEAT, "Chicken");
+        values.put(VEGETABLE, "Basil");
+        values.put(GRAIN, "Spaghetti");
+        values.put(DAIRY, "Cheese");
+        values.put(FRUIT, "Tomatoes");
+        values.put(CALORIES, 471);
+        values.put(LINK, "https://www.foodnetwork.com/recipes/food-network-kitchen/general-tsos-chicken-recipe-3361885");
+        values.put(CHECKED, 0);
+        db.insert(RECIPES_NAME, null, values);
+
+        values = new ContentValues();
+        values.put(RECIPE, "Chicken Parmesan");
+        values.put(MEAT, "Chicken");
+        values.put(VEGETABLE, "Basil");
+        values.put(GRAIN, "Spaghetti");
+        values.put(DAIRY, "Cheese");
+        values.put(FRUIT, "Tomatoes");
+        values.put(CALORIES, 471);
+        values.put(LINK, "https://www.foodnetwork.com/recipes/food-network-kitchen/general-tsos-chicken-recipe-3361885");
+        values.put(CHECKED, 0);
+        db.insert(RECIPES_NAME, null, values);
+
+        values = new ContentValues();
+        values.put(RECIPE, "Chicken Parmesan");
+        values.put(MEAT, "Chicken");
+        values.put(VEGETABLE, "Basil");
+        values.put(GRAIN, "Spaghetti");
+        values.put(DAIRY, "Cheese");
+        values.put(FRUIT, "Tomatoes");
+        values.put(CALORIES, 471);
+        values.put(LINK, "https://www.foodnetwork.com/recipes/food-network-kitchen/general-tsos-chicken-recipe-3361885");
+        values.put(CHECKED, 0);
+        db.insert(RECIPES_NAME, null, values);
+
+        values = new ContentValues();
+        values.put(RECIPE, "Chicken Parmesan");
+        values.put(MEAT, "Chicken");
+        values.put(VEGETABLE, "Basil");
+        values.put(GRAIN, "Spaghetti");
+        values.put(DAIRY, "Cheese");
+        values.put(FRUIT, "Tomatoes");
+        values.put(CALORIES, 471);
+        values.put(LINK, "https://www.foodnetwork.com/recipes/food-network-kitchen/general-tsos-chicken-recipe-3361885");
+        values.put(CHECKED, 0);
+        db.insert(RECIPES_NAME, null, values);
     }
 
 

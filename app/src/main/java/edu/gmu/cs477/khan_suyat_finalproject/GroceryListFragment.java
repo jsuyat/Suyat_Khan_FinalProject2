@@ -28,13 +28,16 @@ public class GroceryListFragment extends Fragment {
     final static private String FOODGROUP = "food_group";
     final static String[] all_columns = {_ID, INGREDIENT, FOODGROUP};
 
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         groceryDBHelper = new GroceryListDatabase(getContext());
         System.out.println("MKv2");
         db = groceryDBHelper.getWritableDatabase();
-        mCursor = db.query(groceryDBHelper.NAME, all_columns,null,null,null,null,null);
+        String whereClause = "ingredient != ?";
+        String [] whereArgs = new String[]{"None"};
+        mCursor = db.query(groceryDBHelper.NAME, all_columns, whereClause, whereArgs,null,null,null);
         myAdapter = new SimpleCursorAdapter(getContext(),
                                             android.R.layout.simple_list_item_1,
                                             mCursor,

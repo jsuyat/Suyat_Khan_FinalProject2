@@ -33,6 +33,30 @@ public class GroceryListDatabase extends SQLiteOpenHelper{
         db.execSQL(CREATE_CMD);
         ContentValues values = new ContentValues();
 
+        values.put(INGREDIENT, "None");
+        values.put(FOODGROUP, "Meat");
+        db.insert(NAME, null, values);
+
+        values = new ContentValues();
+        values.put(INGREDIENT, "None");
+        values.put(FOODGROUP, "Vegetable");
+        db.insert(NAME, null, values);
+
+        values = new ContentValues();
+        values.put(INGREDIENT, "None");
+        values.put(FOODGROUP, "Dairy");
+        db.insert(NAME, null, values);
+
+        values = new ContentValues();
+        values.put(INGREDIENT, "None");
+        values.put(FOODGROUP, "Grain");
+        db.insert(NAME, null, values);
+
+        values = new ContentValues();
+        values.put(INGREDIENT, "None");
+        values.put(FOODGROUP, "Fruit");
+        db.insert(NAME, null, values);
+
         values.put(INGREDIENT, "Banana");
         values.put(FOODGROUP, "Fruit");
         db.insert(NAME, null, values);
@@ -51,19 +75,17 @@ public class GroceryListDatabase extends SQLiteOpenHelper{
         ArrayList<String> meatLabels = new ArrayList<>();
 
         // Select All Query
-        String selectQuery = "SELECT meat FROM " + NAME;
+        String selectQuery = "SELECT ingredient FROM " + NAME+" WHERE food_group = \"Meat\"";
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         // looping through all rows and adding to list
-        if(cursor != null) {
             if (cursor.moveToFirst()) {
                 do {
                     meatLabels.add(cursor.getString(0));
                 } while (cursor.moveToNext());
             }
-        }
 
         // closing connection
         cursor.close();
@@ -71,6 +93,91 @@ public class GroceryListDatabase extends SQLiteOpenHelper{
 
         // returning lables
         return meatLabels;
+    }
+
+
+    /**
+     * Getting all labels
+     * returns list of labels
+     * */
+    public ArrayList<String> getVegetableLabels(){
+        ArrayList<String> vegetableLabels = new ArrayList<>();
+
+        // Select All Query
+        String selectQuery = "SELECT ingredient FROM " + NAME+" WHERE food_group = \"Vegetable\"";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                vegetableLabels.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+        }
+
+        // closing connection
+        cursor.close();
+        db.close();
+
+        // returning lables
+        return vegetableLabels;
+    }
+
+    /**
+     * Getting all labels
+     * returns list of labels
+     * */
+    public ArrayList<String> getGrainLabels(){
+        ArrayList<String> grainLabels = new ArrayList<>();
+
+        // Select All Query
+        String selectQuery = "SELECT ingredient FROM " + NAME+" WHERE food_group = \"Grain\"";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                grainLabels.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+        }
+
+        // closing connection
+        cursor.close();
+        db.close();
+
+        // returning lables
+        return grainLabels;
+    }
+
+    /**
+     * Getting all labels
+     * returns list of labels
+     * */
+    public ArrayList<String> getDairyLabels(){
+        ArrayList<String> dairyLabels = new ArrayList<>();
+
+        // Select All Query
+        String selectQuery = "SELECT ingredient FROM " + NAME+" WHERE food_group = \"Meat\"";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                dairyLabels.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+        }
+
+        // closing connection
+        cursor.close();
+        db.close();
+
+        // returning lables
+        return dairyLabels;
     }
 
     /**

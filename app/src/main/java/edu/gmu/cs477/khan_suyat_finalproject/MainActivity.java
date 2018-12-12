@@ -1,6 +1,8 @@
 package edu.gmu.cs477.khan_suyat_finalproject;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -13,6 +15,11 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
 
 //Mohammad Khan
+
+    public final static String RET_INGREDIENT = "edu.gmu.cs477.khan_suyat_finalproject.RET_INGREDIENT";
+    public final static String RET_FOODGROUP = "edu.gmu.cs477.khan_suyat_finalproject.RET_FOODGROUP";
+    public final int ACTIVITY_RESULT = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +66,21 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     /*this button can be found in Grocery List page*/
     public void onAddClick(View view){
         Intent intent = new Intent(this, AddGrocery.class);
-        startActivity(intent);
+        startActivityForResult(intent, ACTIVITY_RESULT);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        if(requestCode == ACTIVITY_RESULT){
+            String ingredient = data.getExtras().getString(RET_INGREDIENT);
+            String food_group = data.getExtras().getString(RET_FOODGROUP);
+            GroceryListDatabase dbHelper = new GroceryListDatabase(getApplicationContext());
+            SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+            ContentValues values = new ContentValues();
+            values.put("ingredient", ingredient);
+            values.put("food_group", food_group);
+            db.insert(dbHelper.NAME, null, values);
+        }
     }
 }
