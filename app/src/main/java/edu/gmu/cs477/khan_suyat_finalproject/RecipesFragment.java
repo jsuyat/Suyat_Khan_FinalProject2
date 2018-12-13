@@ -97,8 +97,8 @@ public class RecipesFragment extends Fragment {
                 cursor.close();
                 db.close();
 
-                Uri uri = Uri.parse(link);
-                //Uri uri = Uri.parse("https://www.foodnetwork.com/recipes/food-network-kitchen/general-tsos-chicken-recipe-3361885");
+//                Uri uri = Uri.parse(link);
+                Uri uri = Uri.parse("https://www.foodnetwork.com/recipes/food-network-kitchen/general-tsos-chicken-recipe-3361885");
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
             }

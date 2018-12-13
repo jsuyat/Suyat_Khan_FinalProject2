@@ -3,4 +3,13 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="calories">Calories:</string>
+    <string name="calories1">Calories</string>
+    <string name="total">Total:</string>
+    <string name="remaining">Remaining:</string>
+    <string name="values1">---</string>
+    <string name="dash1">---</string>
+    <string name="edit">edit</string>
+    <string name="meal_breakdown">Meal Breakdown</string>
+    <string name="name">Name:</string>
 </resources>
