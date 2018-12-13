@@ -138,4 +138,22 @@ public class RecipesFragment extends Fragment {
         fSpinner.setAdapter(fruitAdapter);
     }
 
+    public void onFindButtonClick(View view){
+        db = recipeDBHelper.getWritableDatabase();
+        String selection = "meat = ? AND vegetable = ? AND dairy = ? AND grain = ? AND fruit = ?";
+        String meatInput = mSpinner.getSelectedItem().toString();
+        String vegInput = vSpinner.getSelectedItem().toString();
+        String dairyInput = dSpinner.getSelectedItem().toString();
+        String grainInput = gSpinner.getSelectedItem().toString();
+        String fruitInput = fSpinner.getSelectedItem().toString();
+        mCursor = db.query(recipeDBHelper.RECIPES_NAME, all_columns,selection,
+                new String[]{meatInput, vegInput, dairyInput, grainInput, fruitInput},null,null,null);
+        myAdapter = new android.widget.SimpleCursorAdapter(getContext(),
+                android.R.layout.simple_list_item_1,
+                mCursor,
+                new String[]{RECIPE},
+                new int[]{android.R.id.text1});
+        mlist.setAdapter(myAdapter);
+    }
+
 }
