@@ -1,14 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="151dp"
-        android:layout_marginTop="230dp"
-        android:text="Calorie" />
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp">
+
+        <TextView
+            android:id="@+id/mealCal"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="196dp"
+            android:layout_marginEnd="124dp"
+            android:layout_marginBottom="11dp"
+            android:text="@string/calories"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/calList"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="178dp"
+            android:text="@string/calories1"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/mealList"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/totalLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:text="@string/total"
+            android:textSize="24sp"
+            android:textStyle="italic"
+            app:layout_constraintBaseline_toBaselineOf="@+id/totalValue"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/remainLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/remaining"
+            android:textSize="24sp"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="@+id/title"
+            app:layout_constraintStart_toEndOf="@+id/title"
+            app:layout_constraintTop_toBottomOf="@+id/title" />
+
+        <TextView
+            android:id="@+id/totalValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="7dp"
+            android:layout_marginBottom="14dp"
+            android:text="@string/values1"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/changeButton"
+            app:layout_constraintEnd_toStartOf="@+id/title" />
+
+        <TextView
+            android:id="@+id/remainingValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/dash1"
+            android:textSize="24sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/remainLabel"
+            app:layout_constraintStart_toEndOf="@+id/remainLabel" />
+
+        <Button
+            android:id="@+id/changeButton"
+            android:layout_width="85dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="27dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="27dp"
+            android:layout_marginBottom="11dp"
+            android:text="@string/edit"
+            app:layout_constraintBottom_toTopOf="@+id/mealTitle"
+            app:layout_constraintEnd_toEndOf="@+id/title"
+            app:layout_constraintStart_toStartOf="@+id/totalValue"
+            app:layout_constraintTop_toBottomOf="@+id/remainLabel" />
+
+        <TextView
+            android:id="@+id/mealTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="196dp"
+            android:layout_marginBottom="14dp"
+            android:text="@string/meal_breakdown"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/mealList"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.12"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ListView
+            android:id="@+id/mealList"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="14dp"
+            android:layout_marginBottom="7dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/calList"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mealTitle" />
+
+        <ListView
+            android:id="@+id/calList"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="93dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/mealList"
+            app:layout_constraintTop_toBottomOf="@+id/mealCal" />
+
+    </android.support.constraint.ConstraintLayout>
 </RelativeLayout>
