@@ -15,9 +15,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -35,6 +37,7 @@ public class RecipesFragment extends Fragment {
     Spinner dSpinner;
     Spinner fSpinner;
     android.app.AlertDialog actions;
+    Button findButton;
     View view;
 
     final static String _ID = "_id";
@@ -54,7 +57,6 @@ public class RecipesFragment extends Fragment {
         super.onCreate(savedInstanceState);
         recipeDBHelper = new RecipesDatabase(getContext());
         groceryDBHelper = new GroceryListDatabase(getContext());
-        System.out.println("In On create");
         db = recipeDBHelper.getWritableDatabase();
         mCursor = db.query(recipeDBHelper.RECIPES_NAME, all_columns,null,null,null,null,null);
         myAdapter = new android.widget.SimpleCursorAdapter(getContext(),
@@ -79,28 +81,8 @@ public class RecipesFragment extends Fragment {
         mlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //Cursor cursor = (Cursor) myAdapter.getItem(position);
-                //String recipe = (String) cursor.getString(0);
-
-                String recipe = (String) myAdapter.getItem(position);
-                System.out.println(position + ": " + recipe);
-                String selectQuery = "SELECT link FROM "+recipeDBHelper.RECIPES_NAME+" WHERE recipe = " + recipe;
-                SQLiteDatabase db = recipeDBHelper.getReadableDatabase();
-                Cursor cursor = db.rawQuery(selectQuery, null);
-                String link = "";
-                // looping through all rows and adding to list
-                if (cursor.moveToFirst()) {
-                    link = cursor.getString(0);
-                }
-
-                // closing connection
-                cursor.close();
-                db.close();
-
-//                Uri uri = Uri.parse(link);
-                Uri uri = Uri.parse("https://www.foodnetwork.com/recipes/food-network-kitchen/general-tsos-chicken-recipe-3361885");
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
+                String recipe = ((TextView) view).getText().toString();
+                onRecipeClicked(recipe);
             }
         });
 
@@ -112,6 +94,27 @@ public class RecipesFragment extends Fragment {
         fSpinner = (Spinner) getView().findViewById(R.id.fruitSpinner);
         loadSpinnerData();
 
+        findButton = (Button) getView().findViewById(R.id.findButton);
+        findButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                db = recipeDBHelper.getWritableDatabase();
+                String selection = "meat = ? AND vegetable = ? AND dairy = ? AND grain = ? AND fruit = ?";
+                String meatInput = mSpinner.getSelectedItem().toString();
+                String vegInput = vSpinner.getSelectedItem().toString();
+                String dairyInput = dSpinner.getSelectedItem().toString();
+                String grainInput = gSpinner.getSelectedItem().toString();
+                String fruitInput = fSpinner.getSelectedItem().toString();
+                mCursor = db.query(recipeDBHelper.RECIPES_NAME, all_columns,selection,
+                        new String[]{meatInput, vegInput, dairyInput, grainInput, fruitInput},null,null,null);
+                myAdapter = new android.widget.SimpleCursorAdapter(getContext(),
+                        android.R.layout.simple_list_item_1,
+                        mCursor,
+                        new String[]{RECIPE},
+                        new int[]{android.R.id.text1});
+                mlist.setAdapter(myAdapter);
+            }
+        });
 
     }
 
@@ -138,7 +141,7 @@ public class RecipesFragment extends Fragment {
         fSpinner.setAdapter(fruitAdapter);
     }
 
-    public void onFindButtonClick(View view){
+    /*public void onFindButtonClick(View view){
         db = recipeDBHelper.getWritableDatabase();
         String selection = "meat = ? AND vegetable = ? AND dairy = ? AND grain = ? AND fruit = ?";
         String meatInput = mSpinner.getSelectedItem().toString();
@@ -154,6 +157,26 @@ public class RecipesFragment extends Fragment {
                 new String[]{RECIPE},
                 new int[]{android.R.id.text1});
         mlist.setAdapter(myAdapter);
-    }
+    }*/
 
+    public void onRecipeClicked(String recipe){
+
+        String selectQuery = "SELECT link FROM "+recipeDBHelper.RECIPES_NAME+" WHERE recipe = \"" +recipe+"\"";
+        SQLiteDatabase db = recipeDBHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        String link = "";
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            link = cursor.getString(0);
+        }
+
+        System.out.println(link);
+        // closing connection
+        cursor.close();
+        db.close();
+
+        Uri uri = Uri.parse(link);
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
+    }
 }

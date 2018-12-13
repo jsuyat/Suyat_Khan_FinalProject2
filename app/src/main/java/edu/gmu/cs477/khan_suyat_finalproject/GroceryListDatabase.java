@@ -160,7 +160,7 @@ public class GroceryListDatabase extends SQLiteOpenHelper{
         ArrayList<String> dairyLabels = new ArrayList<>();
 
         // Select All Query
-        String selectQuery = "SELECT ingredient FROM " + NAME+" WHERE food_group = \"Meat\"";
+        String selectQuery = "SELECT ingredient FROM " + NAME+" WHERE food_group = \"Dairy\"";
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
