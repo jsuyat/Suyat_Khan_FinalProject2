@@ -55,7 +55,8 @@ public class CaloricIntakeFragment extends Fragment {
         db = recipeDBHelper.getWritableDatabase();
         mCursor = db.query(recipeDBHelper.RECIPES_NAME, all_columns,null,null,null,null,null);
 
-        String selectQuery = "SELECT calories FROM "+recipeDBHelper.RECIPES_NAME+" WHERE checked = " + 0;
+        db = recipeDBHelper.getWritableDatabase();
+        String selectQuery = "SELECT _id, calories FROM "+recipeDBHelper.RECIPES_NAME+" WHERE checked = 0";
         mCursor2 = db.rawQuery(selectQuery, null);
 
         myAdapter = new android.widget.SimpleCursorAdapter(getContext(),
@@ -67,7 +68,7 @@ public class CaloricIntakeFragment extends Fragment {
         myAdapter2 = new android.widget.SimpleCursorAdapter(getContext(),
                 android.R.layout.simple_list_item_1,
                 mCursor2,
-                new String[]{RECIPE},
+                new String[]{CALORIES},
                 new int[]{android.R.id.text1});
 
 
