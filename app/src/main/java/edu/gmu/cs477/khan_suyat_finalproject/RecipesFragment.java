@@ -44,6 +44,7 @@ public class RecipesFragment extends Fragment {
     private String link;
     private String _id;
 
+    //variables used to query the database
     final static String _ID = "_id";
     final private static String RECIPE = "recipe";
     final private static String MEAT = "meat";
@@ -74,6 +75,9 @@ public class RecipesFragment extends Fragment {
             public void onClick(DialogInterface dialog, int which) {
                 switch(which){
                     case 0:
+                        /*if user wants to cook this recipe
+                         *it will updated "checked" in the database
+                         *and go to its respective link*/
                         SQLiteDatabase db = recipeDBHelper.getWritableDatabase();
                         String filter = "_id=" + _id;
                         ContentValues values = new ContentValues();
@@ -165,6 +169,7 @@ public class RecipesFragment extends Fragment {
 
     }
 
+    //loads the ingredients to its respective spinners
     private void loadSpinnerData(){
         ArrayList<String> meatLabels = groceryDBHelper.getMeatLabels();
         ArrayAdapter<String> meatAdapter = new ArrayAdapter<String>(getContext(),

@@ -20,6 +20,7 @@
         </activity>
         <activity android:name=".AddGrocery" />
         <activity android:name=".EditCalories"></activity>
+        <receiver android:name=".Notification"></receiver>
     </application>
 
 </manifest>

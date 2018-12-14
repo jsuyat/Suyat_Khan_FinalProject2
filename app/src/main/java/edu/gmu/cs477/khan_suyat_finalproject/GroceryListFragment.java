@@ -31,11 +31,14 @@ public class GroceryListFragment extends Fragment {
     String ingredient;
     AlertDialog actions;
     View view;
+
+    //variables used for querying the database
     final static String _ID = "_id";
     final static private String INGREDIENT = "ingredient";
     final static private String FOODGROUP = "food_group";
     final static String[] all_columns = {_ID, INGREDIENT, FOODGROUP};
 
+    //variables used for the Intent
     public final static String RET_INGREDIENT = "edu.gmu.cs477.khan_suyat_finalproject.RET_INGREDIENT";
     public final static String RET_FOODGROUP = "edu.gmu.cs477.khan_suyat_finalproject.RET_FOODGROUP";
     public final int ACTIVITY_RESULT = 1;
@@ -62,11 +65,6 @@ public class GroceryListFragment extends Fragment {
                     case 0:
                         db = groceryDBHelper.getWritableDatabase();
                         db.delete(groceryDBHelper.NAME, "ingredient=?", new String[]{ingredient});
-                        /*String whereClause = "ingredient != ?";
-                        String [] whereArgs = new String[]{"None"};
-                        mCursor = db.query(groceryDBHelper.NAME, all_columns, whereClause, whereArgs, null, null,
-                                null);
-                        myAdapter.swapCursor(mCursor);*/
                         LoadDatabase loadDB = new LoadDatabase(getContext(), mlist, myAdapter);
                         loadDB.execute();
                         break;
@@ -96,6 +94,8 @@ public class GroceryListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mlist = (ListView) getView().findViewById(R.id.grocery_list);
         mlist.setAdapter(myAdapter);
+
+        //Listener to Delete Ingredients from list/database
         mlist.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -105,6 +105,7 @@ public class GroceryListFragment extends Fragment {
             }
         });
 
+        //listener to start new Intent to go to AddGrocery.class
         Button addButton = (Button) getView().findViewById(R.id.addButton);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,7 +117,7 @@ public class GroceryListFragment extends Fragment {
 
     }
 
-
+    //come here when you are returning from AddGrocery.class
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         if(requestCode == ACTIVITY_RESULT){
@@ -134,6 +135,7 @@ public class GroceryListFragment extends Fragment {
         }
     }
 
+    //AsyncTask to LoadDatabase;
     private final static class LoadDatabase extends AsyncTask<GroceryListDatabase, Void, Cursor>{
         private ListView mList;
         Context appContext;

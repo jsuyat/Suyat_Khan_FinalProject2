@@ -1,7 +1,10 @@
 package edu.gmu.cs477.khan_suyat_finalproject;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,12 +15,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.Calendar;
+
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
 
 //Mohammad Khan
-
+    final Notification notification = new Notification();
     public final static String RET_INGREDIENT = "edu.gmu.cs477.khan_suyat_finalproject.RET_INGREDIENT";
     public final static String RET_FOODGROUP = "edu.gmu.cs477.khan_suyat_finalproject.RET_FOODGROUP";
+    static final String MYDYNAMIC = "edu.gmu.cs477.khan_suyat_finalproject.MYDYNAMIC";
     public final int ACTIVITY_RESULT = 1;
 
     @Override
@@ -29,6 +35,20 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         navigation.setOnNavigationItemSelectedListener(this);
 
         loadFragment(new GroceryListFragment());
+
+        IntentFilter intf = new IntentFilter(MYDYNAMIC);
+        registerReceiver(notification, intf);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 21);
+        calendar.set(Calendar.MINUTE, 27);
+        calendar.set(Calendar.SECOND, 0);
+        Intent intent = new Intent(this, Notification.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        intent.setAction(MYDYNAMIC);
+        sendBroadcast(intent);
     }
 
     private boolean loadFragment(Fragment fragment){
