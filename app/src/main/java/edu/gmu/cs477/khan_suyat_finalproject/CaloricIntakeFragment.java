@@ -74,13 +74,15 @@ public class CaloricIntakeFragment extends Fragment {
                 new String[]{RECIPE,CALORIES},
                 new int[]{android.R.id.text1, android.R.id.text2});
 
+
+        current = 0;    //reset calculation
+
         //total up calories
         while(mCursor2.moveToNext() ) {
 
             int index;
             index = mCursor2.getColumnIndexOrThrow(CALORIES);   //go to calorie column
 
-            current = 0;    //reset calculation
             current += mCursor2.getInt(index);  //get calorie value and add it to current
 
             System.out.println("HEY: " + mCursor2.getInt(index));

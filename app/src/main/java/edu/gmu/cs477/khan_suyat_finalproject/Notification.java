@@ -12,12 +12,14 @@ import android.support.v4.app.NotificationCompat;
 public class Notification extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
+        int calories = CaloricIntakeFragment.current;
+
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getActivity(context,100,intent,PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.ic_notifications_black_24dp)
                 .setContentIntent(pendingIntent)
-                .setContentText("You have consumed calories today")
+                .setContentText("You have consumed " + calories +" calories today")
                 .setContentTitle("Grocery Manager")
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setDefaults(NotificationCompat.DEFAULT_VIBRATE)
