@@ -19,8 +19,8 @@ import android.widget.TextView;
 
 public class CaloricIntakeFragment extends Fragment {
 
-    private int total;
-    private int current;
+    public static int total;
+    public static int current;
 
     Cursor mCursor;
     Cursor mCursor2;
@@ -98,11 +98,6 @@ public class CaloricIntakeFragment extends Fragment {
 
         System.out.println("CURRENT: " + current);
 
-
-
-
-
-
     }
 
 
@@ -135,22 +130,31 @@ public class CaloricIntakeFragment extends Fragment {
 
     }
 
-    public void onEditButtonClicked(View view){
 
-        Intent intent = new Intent();
+    public void updateCalories()
+    {
 
+        TextView cur = (TextView) getView().findViewById(R.id.totalValue);
+        cur.setText(String.valueOf(current));
+
+        int r = total - current;
+
+        TextView remaining = (TextView) getView().findViewById(R.id.remainingValue);
+        remaining.setText(String.valueOf(r));
 
     }
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        if(requestCode == ACTIVITY_RESULT){
 
-//            data.getExtras()
+    @Override
+    public void onResume() {
+        super.onResume();
 
-        }
+        TextView cur = (TextView) getView().findViewById(R.id.totalValue);
+        cur.setText(String.valueOf(current));
+
+        int r = total - current;
+
+        TextView remaining = (TextView) getView().findViewById(R.id.remainingValue);
+        remaining.setText(String.valueOf(r));
     }
-
-
-
-
 }
