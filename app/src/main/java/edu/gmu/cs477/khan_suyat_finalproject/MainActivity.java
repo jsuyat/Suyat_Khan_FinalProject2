@@ -63,11 +63,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         return loadFragment(fragment);
     }
 
-    /*this button can be found in Grocery List page*/
-    public void onAddClick(View view){
-        Intent intent = new Intent(this, AddGrocery.class);
-        startActivityForResult(intent, ACTIVITY_RESULT);
-    }
 
     public void onEditButtonClicked(View view){
 
