@@ -12,4 +12,7 @@
     <string name="edit">edit</string>
     <string name="meal_breakdown">Meal Breakdown</string>
     <string name="name">Name:</string>
+    <string name="enter_new_daily_limit">Enter New Daily Limit</string>
+    <string name="current_max">Current Max:</string>
+    <string name="update">Update</string>
 </resources>
