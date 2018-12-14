@@ -69,9 +69,16 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         startActivityForResult(intent, ACTIVITY_RESULT);
     }
 
+    public void onEditButtonClicked(View view){
+
+        Intent intent = new Intent(this, EditCalories.class);
+        startActivityForResult(intent, ACTIVITY_RESULT);
+    }
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        if(requestCode == ACTIVITY_RESULT){
+        if(resultCode == RESULT_OK){
             String ingredient = data.getExtras().getString(RET_INGREDIENT);
             String food_group = data.getExtras().getString(RET_FOODGROUP);
             GroceryListDatabase dbHelper = new GroceryListDatabase(getApplicationContext());
@@ -81,6 +88,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             values.put("ingredient", ingredient);
             values.put("food_group", food_group);
             db.insert(dbHelper.NAME, null, values);
+        }
+        else if(resultCode == RESULT_CANCELED)
+        {
+            System.out.println("HAHA");
         }
     }
 }
