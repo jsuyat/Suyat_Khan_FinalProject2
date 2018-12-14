@@ -15,16 +15,16 @@ public class RecipesDatabase extends SQLiteOpenHelper {
     final private Context context;
 
     final static String RECIPES_NAME = "Recipes_List";
-    final private static String _ID = "_id";
-    final private static String RECIPE = "recipe";
-    final private static String MEAT = "meat";
-    final private static String VEGETABLE = "vegetable";
-    final private static String GRAIN = "grain";
-    final private static String DAIRY = "dairy";
-    final private static String FRUIT = "fruit";
-    final private static String CALORIES = "calories";
-    final private static String LINK = "link";
-    final private static String CHECKED = "checked";
+    final static String _ID = "_id";
+    final static String RECIPE = "recipe";
+    final static String MEAT = "meat";
+    final static String VEGETABLE = "vegetable";
+    final static String GRAIN = "grain";
+    final static String DAIRY = "dairy";
+    final static String FRUIT = "fruit";
+    final static String CALORIES = "calories";
+    final static String LINK = "link";
+    final static String CHECKED = "checked";
 
     final private static String CREATE_CMD =
             "CREATE TABLE "+RECIPES_NAME+" ("  +
@@ -76,7 +76,7 @@ public class RecipesDatabase extends SQLiteOpenHelper {
         db.insert(RECIPES_NAME, null, values);
 
         values = new ContentValues();
-        values.put(RECIPE, "Chicken Parmesan");
+        values.put(RECIPE, "General Tso's Chicken");
         values.put(MEAT, "Chicken");
         values.put(VEGETABLE, "Basil");
         values.put(GRAIN, "Spaghetti");

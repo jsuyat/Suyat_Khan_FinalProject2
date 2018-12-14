@@ -1,5 +1,7 @@
 package edu.gmu.cs477.khan_suyat_finalproject;
 
+import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -39,6 +41,8 @@ public class RecipesFragment extends Fragment {
     android.app.AlertDialog actions;
     Button findButton;
     View view;
+    private String link;
+    private String _id;
 
     final static String _ID = "_id";
     final private static String RECIPE = "recipe";
@@ -65,6 +69,35 @@ public class RecipesFragment extends Fragment {
                 new String[]{RECIPE},
                 new int[]{android.R.id.text1});
 
+        DialogInterface.OnClickListener actionListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch(which){
+                    case 0:
+                        SQLiteDatabase db = recipeDBHelper.getWritableDatabase();
+                        String filter = "_id=" + _id;
+                        ContentValues values = new ContentValues();
+                        values.put(recipeDBHelper.CHECKED, 1);
+                        db.update(recipeDBHelper.RECIPES_NAME, values, filter, null);
+                        db.close();
+
+                        Uri uri = Uri.parse(link);
+                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                        startActivity(intent);
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+        };
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getContext());
+        builder.setTitle("Do you want to have this meal?");
+        String[] options = {"Go to Recipe"};
+        builder.setItems(options, actionListener);
+        builder.setNegativeButton("Cancel", null);
+        actions = builder.create();
     }
 
     @Nullable
@@ -82,7 +115,21 @@ public class RecipesFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String recipe = ((TextView) view).getText().toString();
-                onRecipeClicked(recipe);
+                String selectQuery = "SELECT _id, link FROM "+recipeDBHelper.RECIPES_NAME+" WHERE recipe = \"" +recipe+"\"";
+                SQLiteDatabase db = recipeDBHelper.getReadableDatabase();
+                Cursor cursor = db.rawQuery(selectQuery, null);
+                _id = "";
+                // looping through all rows and adding to list
+                if (cursor.moveToFirst()) {
+                    _id = cursor.getString(0);
+                    link = cursor.getString(1);
+                }
+
+                // closing connection
+                cursor.close();
+                db.close();
+
+                actions.show();
             }
         });
 
@@ -141,42 +188,28 @@ public class RecipesFragment extends Fragment {
         fSpinner.setAdapter(fruitAdapter);
     }
 
-    /*public void onFindButtonClick(View view){
-        db = recipeDBHelper.getWritableDatabase();
-        String selection = "meat = ? AND vegetable = ? AND dairy = ? AND grain = ? AND fruit = ?";
-        String meatInput = mSpinner.getSelectedItem().toString();
-        String vegInput = vSpinner.getSelectedItem().toString();
-        String dairyInput = dSpinner.getSelectedItem().toString();
-        String grainInput = gSpinner.getSelectedItem().toString();
-        String fruitInput = fSpinner.getSelectedItem().toString();
-        mCursor = db.query(recipeDBHelper.RECIPES_NAME, all_columns,selection,
-                new String[]{meatInput, vegInput, dairyInput, grainInput, fruitInput},null,null,null);
-        myAdapter = new android.widget.SimpleCursorAdapter(getContext(),
-                android.R.layout.simple_list_item_1,
-                mCursor,
-                new String[]{RECIPE},
-                new int[]{android.R.id.text1});
-        mlist.setAdapter(myAdapter);
-    }*/
-
     public void onRecipeClicked(String recipe){
 
-        String selectQuery = "SELECT link FROM "+recipeDBHelper.RECIPES_NAME+" WHERE recipe = \"" +recipe+"\"";
+        String selectQuery = "SELECT _id, link FROM "+recipeDBHelper.RECIPES_NAME+" WHERE recipe = \"" +recipe+"\"";
         SQLiteDatabase db = recipeDBHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-        String link = "";
+        String id = "";
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
-            link = cursor.getString(0);
+            id = cursor.getString(0);
+            link = cursor.getString(1);
         }
 
-        System.out.println(link);
+
+        String filter = "_id=" + id;
+        ContentValues values = new ContentValues();
+        values.put(recipeDBHelper.CHECKED, 1);
+        db.update(recipeDBHelper.RECIPES_NAME, values, filter, null);
+
         // closing connection
         cursor.close();
         db.close();
 
-        Uri uri = Uri.parse(link);
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        startActivity(intent);
+        actions.show();
     }
 }
