@@ -19,8 +19,8 @@ import android.widget.TextView;
 
 public class CaloricIntakeFragment extends Fragment {
 
-    public static int total;
-    public static int current;
+    public static int total = 2000;
+    public static int current = 0;
 
     Cursor mCursor;
     Cursor mCursor2;
@@ -29,10 +29,8 @@ public class CaloricIntakeFragment extends Fragment {
     private SQLiteDatabase db = null;
 
     android.widget.SimpleCursorAdapter myAdapter;
-    android.widget.SimpleCursorAdapter myAdapter2;
 
     ListView mlist;
-    ListView mlist2;
 
 
     final static String _ID = "_id";
@@ -56,46 +54,39 @@ public class CaloricIntakeFragment extends Fragment {
         super.onCreate(savedInstanceState);
         recipeDBHelper = new RecipesDatabase(getContext());
         System.out.println("In On create");
+        System.out.println("Total: " + total);
 
-        total = 2000;
-        current = 0;
+
 
         db = recipeDBHelper.getWritableDatabase();
         mCursor = db.query(recipeDBHelper.RECIPES_NAME, all_columns,null,null,null,null,null);
 
-        db = recipeDBHelper.getWritableDatabase();
-        String selectQuery = "SELECT _id, calories FROM "+recipeDBHelper.RECIPES_NAME+" WHERE checked = 0";
+
+        //get meals that have been selected
+        String selectQuery = "SELECT _id, recipe, calories FROM "+recipeDBHelper.RECIPES_NAME+" WHERE checked = 1";
         mCursor2 = db.rawQuery(selectQuery, null);
 
+
+        //display meal calorie breakdown
         myAdapter = new android.widget.SimpleCursorAdapter(getContext(),
-                android.R.layout.simple_list_item_1,
+                android.R.layout.simple_list_item_2,
                 mCursor,
-                new String[]{RECIPE},
-                new int[]{android.R.id.text1});
+                new String[]{RECIPE,CALORIES},
+                new int[]{android.R.id.text1, android.R.id.text2});
 
-        myAdapter2 = new android.widget.SimpleCursorAdapter(getContext(),
-                android.R.layout.simple_list_item_1,
-                mCursor2,
-                new String[]{CALORIES},
-                new int[]{android.R.id.text1});
-
-
-
-
-
-        while(mCursor2.moveToNext()) {
+        //total up calories
+        while(mCursor2.moveToNext() ) {
 
             int index;
-            index = mCursor2.getColumnIndexOrThrow(CALORIES);
+            index = mCursor2.getColumnIndexOrThrow(CALORIES);   //go to calorie column
 
-            current += mCursor2.getInt(index);
+            current = 0;    //reset calculation
+            current += mCursor2.getInt(index);  //get calorie value and add it to current
 
             System.out.println("HEY: " + mCursor2.getInt(index));
 
-
-
         }
-
+        mCursor2.close();   //close cursor
         System.out.println("CURRENT: " + current);
 
     }
@@ -111,36 +102,20 @@ public class CaloricIntakeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        //set adapter for list
         mlist = (ListView) getView().findViewById(R.id.mealList);
         mlist.setAdapter(myAdapter);
 
-        mlist2 = (ListView) getView().findViewById(R.id.calList);
-        mlist2.setAdapter(myAdapter2);
-
-
+        //update total calories
         TextView cur = (TextView) getView().findViewById(R.id.totalValue);
         cur.setText(String.valueOf(current));
 
-        int r = total - current;
-
+        //update remaining for the day
         TextView remaining = (TextView) getView().findViewById(R.id.remainingValue);
-        remaining.setText(String.valueOf(r));
+        remaining.setText(String.valueOf(total-current));
 
 
-
-    }
-
-
-    public void updateCalories()
-    {
-
-        TextView cur = (TextView) getView().findViewById(R.id.totalValue);
-        cur.setText(String.valueOf(current));
-
-        int r = total - current;
-
-        TextView remaining = (TextView) getView().findViewById(R.id.remainingValue);
-        remaining.setText(String.valueOf(r));
 
     }
 
@@ -149,12 +124,10 @@ public class CaloricIntakeFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
+        //update on resume
         TextView cur = (TextView) getView().findViewById(R.id.totalValue);
         cur.setText(String.valueOf(current));
-
-        int r = total - current;
-
         TextView remaining = (TextView) getView().findViewById(R.id.remainingValue);
-        remaining.setText(String.valueOf(r));
+        remaining.setText(String.valueOf(total-current));
     }
 }

@@ -31,22 +31,30 @@ public class EditCalories extends AppCompatActivity {
     }
 
     public void onUpdateClicked(View view){
-//        Intent intent = new Intent();
-//        String inputIngredient = ingredient.getText().toString();
-//        intent.putExtra(MainActivity.RET_INGREDIENT, inputIngredient);
-//        intent.putExtra(MainActivity.RET_FOODGROUP, food_group);
-//        setResult(RESULT_OK, intent);
-//        finish();
+
+
+
         EditText in = (EditText) findViewById(R.id.input);
+
         String input = in.getText().toString();
 
-        int newTotal = Integer.valueOf(input);
-        CaloricIntakeFragment.total = newTotal;
+        if(input.length()==0)
+        {
+            in.setHint("Please enter a valid number");
+        }
+        else{
 
-        Intent intent = new Intent();
-        setResult(RESULT_CANCELED, intent);
+            int newTotal = Integer.valueOf(input);
+            CaloricIntakeFragment.total = newTotal;
 
-        finish();
+            Intent intent = new Intent();
+            setResult(RESULT_CANCELED, intent);
+
+            finish();
+
+        }
+
+
 
     }
 
